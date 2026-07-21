@@ -1,27 +1,23 @@
-// ---------------------------------------------
-// GOAT TEST FILE — guaranteed working
-// ---------------------------------------------
 // ------------------------------------------------------------
-// GOAT TEST — using GOAT sprite object + crop arrays
+// GOAT TEST — matches your 2×5 sprite sheet
 // ------------------------------------------------------------
 
-// Goat sprite object
 const GOAT = {
   img: null,
 
-  // Correct frame size for your 4-column sheet
-  frameWidth: 396,   // width of ONE goat frame
-  frameHeight: 248,  // height of ONE goat frame
+  frameWidth: 317,   // 1586 / 5
+  frameHeight: 248,  // 496 / 2
 
-  numFrames: 4,      // only use columns 0–3
+  numFrames: 5,      // use ALL columns 0–4
   scale: 0.6,
 
-  // Crop arrays — edit these to control visibility
-  cropLeft:   [0, 0, 0, 0],
-  cropRight:  [0, 0, 0, 0],
-  cropTop:    [0, 0, 0, 0],
-  cropBottom: [0, 0, 0, 0]
+  cropLeft:   [0, 0, 0, 0, 0],
+  cropRight:  [0, 0, 0, 0, 0],
+  cropTop:    [0, 0, 0, 0, 0],
+  cropBottom: [0, 0, 0, 0, 0]
 };
+
+
 
 // Goat state
 let goatFrameIndex = 0;
@@ -29,8 +25,7 @@ let goatX = 200;
 let goatY = 300;
 let goatDirection = "right";
 
-// Animation + movement
-const GOAT_ANIM_SPEED = 8;
+const GOAT_ANIM_SPEED = 6;
 const GOAT_MOVE_SPEED = 2;
 
 function preload() {
@@ -47,8 +42,9 @@ function draw() {
 
   // Animate
   if (frameCount % GOAT_ANIM_SPEED === 0) {
-    goatFrameIndex = (goatFrameIndex + 1) % GOAT.numFrames;
-  }
+  goatFrameIndex = (goatFrameIndex + 1) % GOAT.numFrames;
+}
+
 
   // Move
   if (goatDirection === "right") {
@@ -79,12 +75,11 @@ function getGoatFrame(index, row) {
   );
 }
 
+
 // ------------------------------------------------------------
 // DRAW GOAT (correct rows + crop)
 // ------------------------------------------------------------
 function drawGoat() {
-  // Row 0 = RIGHT-facing
-  // Row 1 = LEFT-facing
   let row = (goatDirection === "left") ? 1 : 0;
 
   let frame = getGoatFrame(goatFrameIndex, row);
@@ -97,3 +92,4 @@ function drawGoat() {
     frame.height * GOAT.scale
   );
 }
+
